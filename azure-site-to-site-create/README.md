@@ -1,9 +1,9 @@
 Site to Site VPN Connection
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/jayparadis/cloud-templates/master/azure-site-to-site-create/azuredeploy.json?token=AAuWNczcZmInfA_d5uoki6EyS6JpX7yYks5XdRsJwA%3D%3D" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/jayparadis/cloud-templates/master/azure-site-to-site-create/azuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-<a href="http://armviz.io/#/?load=https://raw.githubusercontent.com/jayparadis/cloud-templates/master/azure-site-to-site-create/azuredeploy.json?token=AAuWNSC0pp1fFOczHgCtqGs1GZS2u--nks5XdRiYwA%3D%3D" target="_blank">
+<a href="http://armviz.io/#/?load=https://raw.githubusercontent.com/jayparadis/cloud-templates/master/azure-site-to-site-create/azuredeploy.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
