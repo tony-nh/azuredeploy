@@ -188,7 +188,8 @@
         "count": "[parameters('vmLinuxCount')]"
       },
       "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('linuxIPDns'), copyindex())]"
       ],
       "properties": {
         "ipConfigurations": [
@@ -217,7 +218,8 @@
         "count": "[parameters('vmWindowsCount')]"
       },
       "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('windowsIPDns'), copyindex())]"
       ],
       "properties": {
         "ipConfigurations": [
