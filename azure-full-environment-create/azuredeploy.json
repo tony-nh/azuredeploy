@@ -38,40 +38,28 @@
         "description": "Prefix to use for VM names"
       }
     },
-    "winImagePublisher": {
+    "windowsOSVersion": {
       "type": "string",
+      "defaultValue": "2012-R2-Datacenter",
+      "allowedValues": [
+        "2008-R2-SP1",
+        "2012-Datacenter",
+        "2012-R2-Datacenter"
+      ],
       "metadata": {
-        "description": "Image Publisher"
+        "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version. Allowed values: 2008-R2-SP1, 2012-Datacenter, 2012-R2-Datacenter."
       }
     },
-    "winImageOffer": {
+    "ubuntuOSVersion": {
       "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS",
+        "15.10"
+      ],
       "metadata": {
-        "description": "Image Offer"
-      }
-    },
-    "winImageSKU": {
-      "type": "string",
-      "metadata": {
-        "description": "Image SKU"
-      }
-    },
-    "linuxImagePublisher": {
-      "type": "string",
-      "metadata": {
-        "description": "Image Publisher"
-      }
-    },
-    "linuxImageOffer": {
-      "type": "string",
-      "metadata": {
-        "description": "Image Offer"
-      }
-    },
-    "linuxImageSKU": {
-      "type": "string",
-      "metadata": {
-        "description": "Image SKU"
+        "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version. Allowed values: 12.04.5-LTS, 14.04.2-LTS, 15.10."
       }
     },
     "linuxNicNamePrefix": {
@@ -126,6 +114,10 @@
   "variables": {
     "availabilitySetName": "[parameters('availabilitySetName')]",
     "subnetName": "Subnet-1",
+    "windowsImagePublisher": "MicrosoftWindowsServer",
+    "windowsImageOffer": "WindowsServer",
+    "linuxImagePublisher": "Canonical",
+    "linuxImageOffer": "UbuntuServer",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vnetName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
     "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIPAddressName'))]",
@@ -261,9 +253,9 @@
         },
         "storageProfile": {
           "imageReference": {
-            "publisher": "[parameters('winImagePublisher')]",
-            "offer": "[parameters('winImageOffer')]",
-            "sku": "[parameters('winImageSKU')]",
+            "publisher": "[variables('windowsImagePublisher')]",
+            "offer": "[variables('windowsImageOffer')]",
+            "sku": "[parameters('windowsOSVersion')]",
             "version": "latest"
           },
           "osDisk": {
@@ -318,9 +310,9 @@
         },
         "storageProfile": {
           "imageReference": {
-            "publisher": "[parameters('linuxImagePublisher')]",
-            "offer": "[parameters('linuxImageOffer')]",
-            "sku": "[parameters('linuxImageSKU')]",
+            "publisher": "[variables('linuxImagePublisher')]",
+            "offer": "[variables('linuxImageOffer')]",
+            "sku": "[parameters('ubuntuOSVersion')]",
             "version": "latest"
           },
           "osDisk": {

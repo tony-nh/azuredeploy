@@ -20,13 +20,7 @@
     "vmLinuxNamePrefix": {
         "value": "LinuxTier1Test"
     },
-    "winImagePublisher": {
-        "value": "MicrosoftWindowsServer"
-    },
-    "winImageOffer": {
-        "value": "WindowsServer"
-    },
-    "winImageSKU": {
+    "windowsOSVersion": {
         "value": "2012-R2-Datacenter"
     },
     "linuxImagePublisher": {
