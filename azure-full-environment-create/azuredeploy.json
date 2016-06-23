@@ -101,6 +101,8 @@
     "linuxImagePublisher": "Canonical",
     "linuxImageOffer": "UbuntuServer",
     "vmSize": "Standard_D1",
+    "winIPDns": "[concat(parameters('winVMNamePrefix), 'dns')]",
+    "linuxIPDns": "[concat(parameters('linuxVMNamePrefix), 'dns')]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vnetName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
     "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIPAddressName'))]",
@@ -126,12 +128,32 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[parameters('publicIPAddressName')]",
+      "name": "[concat(parameters('publicLinuxIPAddressName'), copyindex())]",
       "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "nicLoop",
+        "count": "[parameters('vmLinuxCount')]"
+      },
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[parameters('dnsNameforLBIP')]"
+          "domainNameLabel": "[concat(variables('linuxIPDns'), copyindex())]"
+        }
+      }
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(parameters('publicWinIPAddressName'), copyindex())]",
+      "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "nicLoop",
+        "count": "[parameters('vmWindowsCount')]"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[concat(variables('windowsIPDns'), copyindex())]"
         }
       }
     },
@@ -174,6 +196,9 @@
             "name": "ipconfig1",
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',[concat(variables('linuxIPDns'), copyindex())])]"
+              },
               "subnet": {
                 "id": "[variables('subnetRef')]"
               }
@@ -200,6 +225,9 @@
             "name": "ipconfig1",
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',[concat(variables('windowsIPDns'), copyindex())])]"
+              },
               "subnet": {
                 "id": "[variables('subnetRef')]"
               }
