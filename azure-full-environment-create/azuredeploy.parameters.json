@@ -1,0 +1,66 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "storageAccountName": {
+      "value": "deploytesttier1t5"  
+    },  
+    "adminUsername": {
+      "value": "azureUser"
+    },
+    "adminPassword": {
+      "value": "Password@123"
+    },
+    "dnsNameforLBIP": {
+      "value": "tier100330djfjasdf"
+    },
+    "vmWinNamePrefix": {
+        "value": "WinTier1Test"
+    },
+    "vmLinuxNamePrefix": {
+        "value": "LinuxTier1Test"
+    },
+    "winImagePublisher": {
+        "value": "MicrosoftWindowsServer"
+    },
+    "winImageOffer": {
+        "value": "WindowsServer"
+    },
+    "winImageSKU": {
+        "value": "2012-R2-Datacenter"
+    },
+    "linuxImagePublisher": {
+        "value": "Canonical"
+    },
+    "linuxImageOffer": {
+        "value": "UbuntuServer"
+    },
+    "linuxImageSKU": {
+      "value": "14.04.2-LTS"
+    },
+    "linuxNicNamePrefix": {
+        "value": "lnxNic"
+    },
+    "windowsNicNamePrefix": {
+        "value": "winNic"
+    },
+    "publicIPAddressName": {
+        "value": "Tier1TestIPName"
+    },
+    "vnetName": {
+        "value": "Tier1VNETTest"
+    },
+    "vmSize": {
+        "value": "Standard_D1"
+    },
+    "vmLinuxCount": {
+        "value": 2
+    },
+    "vmWindowsCount": {
+        "value": 4
+    },
+    "availabilitySetName": {
+        "value": "Tier1SetTest"
+    }
+  }
+}
