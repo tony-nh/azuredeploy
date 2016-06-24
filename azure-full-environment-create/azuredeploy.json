@@ -112,7 +112,6 @@
     "linuxIPDns": "[concat(parameters('LinuxVMNamePrefix'), 'dns')]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vnetName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
-    "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIPAddressName'))]",
     "numberOfLinuxInstances": "[parameters('vmLinuxCount')]",
     "numberOfWindowsInstances": "[parameters('vmWindowsCount')]",
     "publicIPAddressName1": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
