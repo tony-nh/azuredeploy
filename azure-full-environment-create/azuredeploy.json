@@ -20,12 +20,6 @@
         "description": "Admin password"
       }
     },
-    "dnsNameforLBIP": {
-      "type": "string",
-      "metadata": {
-        "description": "DNS for Load Balancer IP"
-      }
-    },
     "WindowsVMNamePrefix": {
       "type": "string",
       "metadata": {
@@ -74,18 +68,6 @@
         "description": "VNET name"
       }
     },
-    "vmLinuxCount": {
-        "type": "int",
-        "metadata": {
-            "description": "Number of linux VMs"
-        }
-    },
-    "vmWindowsCount": {
-        "type": "int",
-        "metadata": {
-            "description": "Number of Windows VMs"
-        }
-    },
     "availabilitySetName": {
         "type": "string",
         "metadata": {
@@ -112,8 +94,8 @@
     "linuxIPDns": "[concat(parameters('LinuxVMNamePrefix'), 'dns')]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vnetName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
-    "numberOfLinuxInstances": "[parameters('vmLinuxCount')]",
-    "numberOfWindowsInstances": "[parameters('vmWindowsCount')]",
+    "numberOfLinuxInstances": 2,
+    "numberOfWindowsInstances": 4,
     "publicIPAddressName1": "[concat(uniquestring(resourceGroup().id), 'PublicIp1')]",
     "publicIPAddressName2": "[concat(uniquestring(resourceGroup().id), 'PublicIp2')]",
     "publicIPAddressName3": "[concat(uniquestring(resourceGroup().id), 'PublicIp3')]",
