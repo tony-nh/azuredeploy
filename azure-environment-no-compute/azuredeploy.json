@@ -124,7 +124,14 @@
             "metadata": {
                 "description": "Shared key (PSK) for IPSec tunnel"
             }
-        }
+        },
+     "NSGName": {
+      "type": "string",
+      "defaultValue": "NSG",
+      "metadata": {
+        "description": "This is name of the networkSecurityGroup"
+      }
+    }
   },
   "variables": {
     "availabilitySetName": "[parameters('availabilitySetName')]",
@@ -143,6 +150,12 @@
         "accountType": "Standard_LRS"
       }
     },
+        {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('NSGName')]",
+      "location": "[resourceGroup().location]"
+        },
     {
       "type": "Microsoft.Compute/availabilitySets",
       "name": "[variables('availabilitySetName')]",
@@ -228,59 +241,7 @@
           ]
         }
       },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('LinuxVMNamePrefix'), 'nic', copyindex())]",
-      "location": "[resourceGroup().location]",
-      "copy": {
-        "name": "nicLoop",
-        "count": "[parameters('vmLinuxCount')]"
-      },
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
-      ],
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "[variables('subnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-        {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('WindowsVMNamePrefix'), 'nic', copyindex())]",
-      "location": "[resourceGroup().location]",
-      "copy": {
-        "name": "nicLoop",
-        "count": "[parameters('vmWindowsCount')]"
-      },
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
-      ],
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "[variables('subnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-         {
+      {
         "apiVersion": "[variables('api-version')]",
         "type": "Microsoft.Network/virtualNetworkGateways",
         "name": "[parameters('gatewayName')]",
