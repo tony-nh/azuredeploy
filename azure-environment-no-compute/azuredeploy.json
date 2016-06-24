@@ -43,6 +43,12 @@
                 "PolicyBased"
             ]
         },
+        "dnsNameforLBIP": {
+          "type": "string",
+          "metadata": {
+            "description": "DNS name"
+          }
+        },
         "localGatewayName": {
             "type": "string",
             "defaultValue": "localGateway",
