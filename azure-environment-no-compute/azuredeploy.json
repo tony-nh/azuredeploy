@@ -156,17 +156,6 @@
       "location": "[resourceGroup().location]"
         },
     {
-      "type": "Microsoft.Compute/availabilitySets",
-      "name": "[parameters('availabilitySetName')]",
-      "apiVersion": "2015-06-15",
-      "location": "[resourceGroup().location]",
-      "copy": {
-        "name": "availabilityLoop",
-        "count": "[parameters('numberOfAvailabilitySets')]"
-      },
-      "properties": { }
-    },
-    {
         "apiVersion": "[variables('api-version')]",
         "type": "Microsoft.Network/localNetworkGateways",
         "name": "[parameters('localGatewayName')]",
