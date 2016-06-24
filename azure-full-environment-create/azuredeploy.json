@@ -91,7 +91,14 @@
         "metadata": {
             "description": "Name of the availability set"
         }
-    }
+    },
+         "NSGName": {
+      "type": "string",
+      "defaultValue": "NSG",
+      "metadata": {
+        "description": "This is name of the networkSecurityGroup"
+      }
+         }
   },
   "variables": {
     "availabilitySetName": "[parameters('availabilitySetName')]",
@@ -107,7 +114,13 @@
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
     "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIPAddressName'))]",
     "numberOfLinuxInstances": "[parameters('vmLinuxCount')]",
-    "numberOfWindowsInstances": "[parameters('vmWindowsCount')]"
+    "numberOfWindowsInstances": "[parameters('vmWindowsCount')]",
+    "publicIPAddressName1": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
+    "publicIPAddressName2": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
+    "publicIPAddressName3": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
+    "publicIPAddressName4": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
+    "publicIPAddressNameLinux1": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
+    "publicIPAddressNameLinux2": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]"
   },
    "resources": [ {
       "type": "Microsoft.Storage/storageAccounts",
@@ -126,34 +139,40 @@
       "properties": { }
     },
     {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('NSGName')]",
+      "location": "[resourceGroup().location]"
+        },
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('publicIPAddressName'), 'linux', copyindex())]",
+      "name": "[concat(variables('publicIPAddressNameLinux'), copyindex())]",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "nicLoop",
-        "count": "[parameters('vmLinuxCount')]"
+        "count": 2
       },
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(variables('linuxIPDns'), copyindex())]"
+          "domainNameLabel": "[concat(parameters('LinuxVMNamePrefix'), copyindex())]"
         }
       }
     },
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('publicIPAddressName'), 'windows', copyindex())]",
+      "name": "[concat(variables('publicIPAddressName'), copyindex())]",
       "location": "[resourceGroup().location]",
       "copy": {
         "name": "nicLoop",
-        "count": "[parameters('vmWindowsCount')]"
+        "count": 4
       },
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(variables('winIPDns'), copyindex())]"
+          "domainNameLabel": "[concat(parameters('WindowsVMNamePrefix'), copyindex())]"
         }
       }
     },
@@ -189,7 +208,7 @@
       },
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-        "[concat('Microsoft.Network/publicIPAddresses/', variables('linuxIPDns'), copyindex())]"
+        "[concat('Microsoft.Network/publicIPAddresses/', variables(''), copyindex())]"
       ],
       "properties": {
         "ipConfigurations": [
@@ -198,7 +217,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',[concat(variables('linuxIPDns'), copyindex())])]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', [concat(variables('publicIPAddressNameLinux'), copyindex())]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
@@ -228,7 +247,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',[concat(variables('windowsIPDns'), copyindex())])]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', [concat(variables('publicIPAddressName'), copyindex())]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
