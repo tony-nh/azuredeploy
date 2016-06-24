@@ -130,7 +130,7 @@
     "availabilitySetName": "[parameters('availabilitySetName')]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vnetName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('subnetName'))]",
-    "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIPAddressName'))]",
+    "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('gatewayPublicIPName'))]",
     "gatewaySubnetRef": "[concat(variables('vnetID'),'/subnets/','GatewaySubnet')]",
     "api-version": "2015-06-15"
   },
@@ -192,7 +192,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[parameters('publicIPAddressName')]",
+      "name": "[parameters('gatewayPublicIPName')]",
       "location": "[resourceGroup().location]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
