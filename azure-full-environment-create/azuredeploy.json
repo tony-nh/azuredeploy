@@ -114,12 +114,12 @@
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
     "numberOfLinuxInstances": "[parameters('vmLinuxCount')]",
     "numberOfWindowsInstances": "[parameters('vmWindowsCount')]",
-    "publicIPAddressName1": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
-    "publicIPAddressName2": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
-    "publicIPAddressName3": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
-    "publicIPAddressName4": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
-    "publicIPAddressNameLinux1": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]",
-    "publicIPAddressNameLinux2": "[concat(uniquestring(resourceGroup().id), 'PublicIp')]"
+    "publicIPAddressName1": "[concat(uniquestring(resourceGroup().id), 'PublicIp1')]",
+    "publicIPAddressName2": "[concat(uniquestring(resourceGroup().id), 'PublicIp2')]",
+    "publicIPAddressName3": "[concat(uniquestring(resourceGroup().id), 'PublicIp3')]",
+    "publicIPAddressName4": "[concat(uniquestring(resourceGroup().id), 'PublicIp4')]",
+    "publicIPAddressNameLinux1": "[concat(uniquestring(resourceGroup().id), 'PublicIp5')]",
+    "publicIPAddressNameLinux2": "[concat(uniquestring(resourceGroup().id), 'PublicIp6')]"
   },
    "resources": [ {
       "type": "Microsoft.Storage/storageAccounts",
