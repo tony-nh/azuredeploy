@@ -147,32 +147,72 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(variables('publicIPAddressNameLinux'), copyindex())]",
+      "name": "variables('publicIPAddressNameLinux1')",
       "location": "[resourceGroup().location]",
-      "copy": {
-        "name": "nicLoop",
-        "count": 2
-      },
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('LinuxVMNamePrefix'), copyindex())]"
+          "domainNameLabel": "[concat(parameters('LinuxVMNamePrefix'), '1']"
+        }
+      }
+    },
+        {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "variables('publicIPAddressNameLinux2')",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[concat(parameters('LinuxVMNamePrefix'), '2')]"
         }
       }
     },
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(variables('publicIPAddressName'), copyindex())]",
+      "name": "variables('publicIPAddressName1')",
       "location": "[resourceGroup().location]",
-      "copy": {
-        "name": "nicLoop",
-        "count": 4
-      },
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('WindowsVMNamePrefix'), copyindex())]"
+          "domainNameLabel": "[concat(parameters('WindowsVMNamePrefix'), '1')]"
+        }
+      }
+    },
+        {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "variables('publicIPAddressName2')",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[concat(parameters('WindowsVMNamePrefix'), '2')]"
+        }
+      }
+    },
+        {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "variables('publicIPAddressName3')",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[concat(parameters('WindowsVMNamePrefix'), '3')]"
+        }
+      }
+    },
+        {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "variables('publicIPAddressName4')",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[concat(parameters('WindowsVMNamePrefix'), '4')]"
         }
       }
     },
