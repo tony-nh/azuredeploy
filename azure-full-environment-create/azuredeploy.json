@@ -4,12 +4,14 @@
    "parameters": { 
       "storageAccountName": {
       "type": "string",
+      "defaultValue": "storacct",
       "metadata": {
         "description": "Name of storage account"
       }
     },
     "adminUsername": {
       "type": "string",
+      "defaultValue": "sysadmin",
       "metadata": {
         "description": "Admin username"
       }
@@ -22,12 +24,14 @@
     },
     "WindowsVMNamePrefix": {
       "type": "string",
+      "defaultValue": "winvm",
       "metadata": {
         "description": "Prefix to use for VM names"
       }
     },
     "LinuxVMNamePrefix": {
       "type": "string",
+      "defaultValue": "lnxvm",
       "metadata": {
         "description": "Prefix to use for VM names"
       }
@@ -60,12 +64,14 @@
     },
     "publicIPAddressName": {
       "type": "string",
+      "defaultValue": "publicip",
       "metadata": {
         "description": "Public IP Name"
       }
     },
     "vnetName": {
       "type": "string",
+      "defaultValue": "vnet",
       "metadata": {
         "description": "VNET name"
       }
@@ -78,7 +84,7 @@
     },
          "NSGName": {
       "type": "string",
-      "defaultValue": "NSG",
+      "defaultValue": "nsg",
       "metadata": {
         "description": "This is name of the networkSecurityGroup"
       }
@@ -98,12 +104,12 @@
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
     "numberOfLinuxInstances": 2,
     "numberOfWindowsInstances": 4,
-    "publicIPAddressNameWindows1": "[concat(parameters('WindowsVMNamePrefix')), 'PublicIp1')]",
-    "publicIPAddressNameWindows2": "[concat(parameters('WindowsVMNamePrefix')), 'PublicIp2')]",
-    "publicIPAddressNameWindows3": "[concat(parameters('WindowsVMNamePrefix')), 'PublicIp3')]",
-    "publicIPAddressNameWindows4": "[concat(parameters('WindowsVMNamePrefix')), 'PublicIp4')]",
-    "publicIPAddressNameLinux1": "[concat(parameters('LinuxVMNamePrefix')), 'PublicIp1')]",
-    "publicIPAddressNameLinux2": "[concat(parameters('LinuxVMNamePrefix')), 'PublicIp2')]"
+    "publicIPAddressNameWindows1": "[concat(parameters('WindowsVMNamePrefix'), 'PublicIp1')]",
+    "publicIPAddressNameWindows2": "[concat(parameters('WindowsVMNamePrefix'), 'PublicIp2')]",
+    "publicIPAddressNameWindows3": "[concat(parameters('WindowsVMNamePrefix'), 'PublicIp3')]",
+    "publicIPAddressNameWindows4": "[concat(parameters('WindowsVMNamePrefix'), 'PublicIp4')]",
+    "publicIPAddressNameLinux1": "[concat(parameters('LinuxVMNamePrefix'), 'PublicIp1')]",
+    "publicIPAddressNameLinux2": "[concat(parameters('LinuxVMNamePrefix'), 'PublicIp2')]"
   },
    "resources": [ {
       "type": "Microsoft.Storage/storageAccounts",
