@@ -6,14 +6,14 @@
       "type": "string",
       "defaultValue": "storacct",
       "metadata": {
-        "description": "Name of storage account"
+        "description": "name of storage account"
       }
     },
-    "adminUsername": {
+    "adminUserName": {
       "type": "string",
       "defaultValue": "sysadmin",
       "metadata": {
-        "description": "Admin username"
+        "description": "Admin user name"
       }
     },
     "adminPassword": {
@@ -26,14 +26,14 @@
       "type": "string",
       "defaultValue": "winvm",
       "metadata": {
-        "description": "Prefix to use for VM names"
+        "description": "prefix to use for Windows VM names"
       }
     },
     "LinuxVMNamePrefix": {
       "type": "string",
       "defaultValue": "lnxvm",
       "metadata": {
-        "description": "Prefix to use for VM names"
+        "description": "prefix to use for Linux VM names"
       }
     },
     "windowsOSVersion": {
@@ -66,28 +66,28 @@
       "type": "string",
       "defaultValue": "publicip",
       "metadata": {
-        "description": "Public IP Name"
+        "description": "name of public IP address"
       }
     },
     "vnetName": {
       "type": "string",
       "defaultValue": "vnet",
       "metadata": {
-        "description": "VNET name"
+        "description": "name of virtual network"
       }
     },
     "availabilitySetName": {
         "type": "string",
       "defaultValue": "availset",
         "metadata": {
-            "description": "Name of the availability set"
+            "description": "name of availability set"
         }
     },
          "NSGName": {
       "type": "string",
       "defaultValue": "nsg",
       "metadata": {
-        "description": "This is name of the networkSecurityGroup"
+        "description": "name of  network security group"
       }
          }
   },
@@ -395,7 +395,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('WindowsVMNamePrefix'), 'nic', copyindex())]",
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('WindowsVMNamePrefix'), 'nic', copyindex(1))]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
@@ -406,8 +406,8 @@
           "vmSize": "[variables('vmSize')]"
         },
         "osProfile": {
-          "computerName": "[concat(parameters('WindowsVMNamePrefix'), copyindex())]",
-          "adminUsername": "[parameters('adminUsername')]",
+          "computerName": "[concat(parameters('WindowsVMNamePrefix'), copyindex(1))]",
+          "adminUserName": "[parameters('adminUserName')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
         "storageProfile": {
@@ -420,7 +420,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','winosdisk', copyindex(), '.vhd')]"
+              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','winosdisk', copyindex(1), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -429,7 +429,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('WindowsVMNamePrefix'), 'nic',copyindex()))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('WindowsVMNamePrefix'), 'nic',copyindex(1)))]"
             }
           ]
         },
@@ -452,7 +452,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('LinuxVMNamePrefix'), 'nic', copyindex())]",
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('LinuxVMNamePrefix'), 'nic', copyindex(1))]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
@@ -463,8 +463,8 @@
           "vmSize": "[variables('vmSize')]"
         },
         "osProfile": {
-          "computerName": "[concat(parameters('LinuxVMNamePrefix'), copyindex())]",
-          "adminUsername": "[parameters('adminUsername')]",
+          "computerName": "[concat(parameters('LinuxVMNamePrefix'), copyindex(1))]",
+          "adminUserName": "[parameters('adminUserName')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
         "storageProfile": {
@@ -477,7 +477,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxosdisk', copyindex(), '.vhd')]"
+              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxosdisk', copyindex(1), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -488,7 +488,7 @@
               "diskSizeGB": "100",
               "lun": 0,
               "vhd": {
-                "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxdatadisk', copyindex(), '.vhd')]"
+                "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxdatadisk', copyindex(1), '.vhd')]"
               },
               "createOption": "Empty"
             }
@@ -497,7 +497,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('LinuxVMNamePrefix'), 'nic',copyindex()))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('LinuxVMNamePrefix'), 'nic',copyindex(1)))]"
             }
           ]
         },
