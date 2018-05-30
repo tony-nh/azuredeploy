@@ -4,7 +4,7 @@
    "parameters": { 
       "storageAccountName": {
       "type": "string",
-      "defaultValue": "storacct",
+      "defaultValue": "_storacct",
       "metadata": {
         "description": "name of storage account"
       }
@@ -25,14 +25,14 @@
     },
     "windowsVMNamePrefix": {
       "type": "string",
-      "defaultValue": "winvm",
+      "defaultValue": "_winvm",
       "metadata": {
         "description": "prefix to use for Windows VM names"
       }
     },
     "linuxVMNamePrefix": {
       "type": "string",
-      "defaultValue": "lnxvm",
+      "defaultValue": "_lnxvm",
       "metadata": {
         "description": "prefix to use for Linux VM names"
       }
@@ -52,7 +52,7 @@
     },
     "linuxOSVersion": {
       "type": "string",
-      "defaultValue": "6.9",
+      "defaultValue": "7.3",
       "allowedValues": [
         "6.8",
         "6.9",
@@ -65,28 +65,28 @@
     },
     "publicIPAddressName": {
       "type": "string",
-      "defaultValue": "publicip",
+      "defaultValue": "_publicip",
       "metadata": {
         "description": "name of public IP address"
       }
     },
     "vnetName": {
       "type": "string",
-      "defaultValue": "vnet",
+      "defaultValue": "_vnet",
       "metadata": {
         "description": "name of virtual network"
       }
     },
     "availabilitySetName": {
         "type": "string",
-      "defaultValue": "availset",
+      "defaultValue": "_availset",
         "metadata": {
             "description": "name of availability set"
         }
     },
          "nsgName": {
       "type": "string",
-      "defaultValue": "nsg",
+      "defaultValue": "_nsg",
       "metadata": {
         "description": "name of  network security group"
       }
