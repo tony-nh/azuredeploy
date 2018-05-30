@@ -6,10 +6,10 @@
       "value": "deploytesttier1t5"  
     },  
     "adminUsername": {
-      "value": "azureUser"
+      "value": "sysadmin"
     },
     "adminPassword": {
-      "value": "Password@123"
+      "value": "ov-101Enterprise"
     },
     "dnsNameforLBIP": {
       "value": "tier100330djfjasdf"
@@ -24,13 +24,13 @@
         "value": "2012-R2-Datacenter"
     },
     "linuxImagePublisher": {
-        "value": "Canonical"
+        "value": "OpenLogic"
     },
     "linuxImageOffer": {
-        "value": "UbuntuServer"
+        "value": "CentOS"
     },
     "linuxImageSKU": {
-      "value": "14.04.2-LTS"
+      "value": "6.9"
     },
     "linuxNicNamePrefix": {
         "value": "lnxNic"

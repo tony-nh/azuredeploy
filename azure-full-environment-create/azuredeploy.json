@@ -38,22 +38,24 @@
       "allowedValues": [
         "2008-R2-SP1",
         "2012-Datacenter",
-        "2012-R2-Datacenter"
+        "2012-R2-Datacenter",
+        "2016-Datacenter"
       ],
       "metadata": {
-        "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version. Allowed values: 2008-R2-SP1, 2012-Datacenter, 2012-R2-Datacenter."
+        "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version. Allowed values: 2008-R2-SP1, 2012-Datacenter, 2012-R2-Datacenter, 2016-Datacenter."
       }
     },
-    "ubuntuOSVersion": {
+    "linuxOSVersion": {
       "type": "string",
-      "defaultValue": "14.04.2-LTS",
+      "defaultValue": "6.9",
       "allowedValues": [
-        "12.04.5-LTS",
-        "14.04.2-LTS",
-        "15.10"
+        "6.8",
+        "6.9",
+        "7.3",
+        "7.5"
       ],
       "metadata": {
-        "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version. Allowed values: 12.04.5-LTS, 14.04.2-LTS, 15.10."
+        "description": "The CentOS version for the VM. This will pick a fully patched image of this given CentOS version. Allowed values: 6.8, 6.9, 7.3, 7.5."
       }
     },
     "publicIPAddressName": {
@@ -87,15 +89,15 @@
     "subnetName": "Subnet-1",
     "windowsImagePublisher": "MicrosoftWindowsServer",
     "windowsImageOffer": "WindowsServer",
-    "linuxImagePublisher": "Canonical",
-    "linuxImageOffer": "UbuntuServer",
-    "vmSize": "Standard_D1",
+    "linuxImagePublisher": "OpenLogic",
+    "linuxImageOffer": "CentOS",
+    "vmSize": "Standard_A2_v2",
     "winIPDns": "[concat(parameters('WindowsVMNamePrefix'), 'dns')]",
     "linuxIPDns": "[concat(parameters('LinuxVMNamePrefix'), 'dns')]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vnetName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
     "numberOfLinuxInstances": 2,
-    "numberOfWindowsInstances": 4,
+    "numberOfWindowsInstances": 2,
     "publicIPAddressName1": "[concat(uniquestring(resourceGroup().id), 'PublicIp1')]",
     "publicIPAddressName2": "[concat(uniquestring(resourceGroup().id), 'PublicIp2')]",
     "publicIPAddressName3": "[concat(uniquestring(resourceGroup().id), 'PublicIp3')]",
@@ -462,7 +464,7 @@
           "imageReference": {
             "publisher": "[variables('linuxImagePublisher')]",
             "offer": "[variables('linuxImageOffer')]",
-            "sku": "[parameters('ubuntuOSVersion')]",
+            "sku": "[parameters('linuxOSVersion')]",
             "version": "latest"
           },
           "osDisk": {
