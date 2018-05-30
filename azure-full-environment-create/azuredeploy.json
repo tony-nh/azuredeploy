@@ -78,6 +78,7 @@
     },
     "availabilitySetName": {
         "type": "string",
+      "defaultValue": "availset",
         "metadata": {
             "description": "Name of the availability set"
         }
@@ -386,7 +387,7 @@
        {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(parameters('WindowsVMNamePrefix'), copyindex()+1+1)]",
+      "name": "[concat(parameters('WindowsVMNamePrefix'), copyindex(1))]",
       "copy": {
         "name": "virtualMachineLoop",
         "count": "[variables('numberOfWindowsInstances')]"
@@ -394,7 +395,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('WindowsVMNamePrefix'), 'nic', copyindex()+1+1)]",
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('WindowsVMNamePrefix'), 'nic', copyindex())]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
@@ -405,7 +406,7 @@
           "vmSize": "[variables('vmSize')]"
         },
         "osProfile": {
-          "computerName": "[concat(parameters('WindowsVMNamePrefix'), copyindex()+1+1)]",
+          "computerName": "[concat(parameters('WindowsVMNamePrefix'), copyindex())]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
@@ -419,7 +420,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','winosdisk', copyindex()+1+1, '.vhd')]"
+              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','winosdisk', copyindex(), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -428,7 +429,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('WindowsVMNamePrefix'), 'nic',copyindex()+1+1))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('WindowsVMNamePrefix'), 'nic',copyindex()))]"
             }
           ]
         },
@@ -443,7 +444,7 @@
       {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(parameters('LinuxVMNamePrefix'), copyindex()+1)]",
+      "name": "[concat(parameters('LinuxVMNamePrefix'), copyindex(1))]",
       "copy": {
         "name": "virtualMachineLoop",
         "count": "[variables('numberOfLinuxInstances')]"
@@ -451,7 +452,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('LinuxVMNamePrefix'), 'nic', copyindex()+1)]",
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('LinuxVMNamePrefix'), 'nic', copyindex())]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
@@ -462,7 +463,7 @@
           "vmSize": "[variables('vmSize')]"
         },
         "osProfile": {
-          "computerName": "[concat(parameters('LinuxVMNamePrefix'), copyindex()+1)]",
+          "computerName": "[concat(parameters('LinuxVMNamePrefix'), copyindex())]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
@@ -476,7 +477,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxosdisk', copyindex()+1, '.vhd')]"
+              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxosdisk', copyindex(), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -487,7 +488,7 @@
               "diskSizeGB": "100",
               "lun": 0,
               "vhd": {
-                "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxdatadisk', copyindex()+1, '.vhd')]"
+                "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxdatadisk', copyindex(), '.vhd')]"
               },
               "createOption": "Empty"
             }
@@ -496,7 +497,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('LinuxVMNamePrefix'), 'nic',copyindex()+1))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('LinuxVMNamePrefix'), 'nic',copyindex()))]"
             }
           ]
         },
