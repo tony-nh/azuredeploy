@@ -430,7 +430,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('windowsVMNamePrefix'), 'nic',copyindex(1)))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('windowsVMNamePrefix'), '-nic',copyindex(1)))]"
             }
           ]
         },
@@ -498,7 +498,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('linuxVMNamePrefix'), 'nic',copyindex(1)))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('linuxVMNamePrefix'), '-nic',copyindex(1)))]"
             }
           ]
         },
