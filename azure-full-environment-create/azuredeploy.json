@@ -396,7 +396,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('windowsVMNamePrefix'), 'nic', copyindex(1))]",
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('windowsVMNamePrefix'), '-nic', copyindex(1))]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
@@ -453,7 +453,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('linuxVMNamePrefix'), 'nic', copyindex(1))]",
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('linuxVMNamePrefix'), '-nic', copyindex(1))]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
