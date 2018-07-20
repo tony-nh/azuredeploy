@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "storageAccountName": {
-      "value": "deploytesttier1t5"  
+      "value": "mystoracct"  
     },  
     "adminUsername": {
       "value": "sysadmin"
@@ -12,13 +12,13 @@
       "value": "ov-101Enterprise"
     },
     "dnsNameforLBIP": {
-      "value": "tier100330djfjasdf"
+      "value": "mylb"
     },
     "vmWinNamePrefix": {
-        "value": "WinTier1Test"
+        "value": "mywinvm"
     },
     "vmLinuxNamePrefix": {
-        "value": "LinuxTier1Test"
+        "value": "mylnxvm"
     },
     "windowsOSVersion": {
         "value": "2012-R2-Datacenter"
@@ -33,28 +33,28 @@
       "value": "6.9"
     },
     "linuxNicNamePrefix": {
-        "value": "lnxNic"
+        "value": "lnxvm-nic"
     },
     "windowsNicNamePrefix": {
-        "value": "winNic"
+        "value": "winvm-nic"
     },
     "publicIPAddressName": {
-        "value": "Tier1TestIPName"
+        "value": "myip"
     },
     "vnetName": {
-        "value": "Tier1VNETTest"
+        "value": "myvnet"
     },
     "vmSize": {
-        "value": "Standard_D1"
+        "value": "Standard_A2_v2"
     },
-    "vmLinuxCount": {
+    "numberOfLinuxInstances": {
         "value": 2
     },
-    "vmWindowsCount": {
+    "numberOfWindowsInstances": {
         "value": 4
     },
     "availabilitySetName": {
-        "value": "Tier1SetTest"
+        "value": "myavailset"
     }
   }
 }
