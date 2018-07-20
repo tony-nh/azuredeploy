@@ -105,13 +105,7 @@
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vnetName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
     "numberOfLinuxInstances": 2,
-    "numberOfWindowsInstances": 4,
-    "publicIPAddressNameWindows1": "[concat(parameters('windowsVMNamePrefix'), '-ip1')]",
-    "publicIPAddressNameWindows2": "[concat(parameters('windowsVMNamePrefix'), '-ip2')]",
-    "publicIPAddressNameWindows3": "[concat(parameters('windowsVMNamePrefix'), '-ip3')]",
-    "publicIPAddressNameWindows4": "[concat(parameters('windowsVMNamePrefix'), '-ip4')]",
-    "publicIPAddressNameLinux1": "[concat(parameters('linuxVMNamePrefix'), '-ip1')]",
-    "publicIPAddressNameLinux2": "[concat(parameters('linuxVMNamePrefix'), '-ip2')]"
+    "numberOfWindowsInstances": 4
   },
   "resources": [
     {
@@ -139,7 +133,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('linuxVMNamePrefix'), '-ip', copyindex(1))]",
+      "name": "[concat(parameters('linuxVMNamePrefix'), copyindex(1), '-ip')]",
       "copy": {
         "name": "publicIPAddressLoopLinux",
         "count": "[variables('numberOfLinuxInstances')]"
@@ -148,14 +142,14 @@
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('linuxVMNamePrefix'), '1')]"
+          "domainNameLabel": "[concat(parameters('linuxVMNamePrefix'), copyindex(1))]"
         }
       }
     },
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('windowsVMNamePrefix'), '-ip', copyindex(1))]",
+      "name": "[concat(parameters('windowsVMNamePrefix'), copyindex(1), '-ip')]",
       "copy": {
         "name": "publicIPAddressLoopWindows",
         "count": "[variables('numberOfWindowsInstances')]"
@@ -164,7 +158,7 @@
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('windowsVMNamePrefix'), '1')]"
+          "domainNameLabel": "[concat(parameters('windowsVMNamePrefix'), copyindex(1))]"
         }
       }
     },
@@ -192,7 +186,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('linuxVMNamePrefix'), '-nic', copyindex(1))]",
+      "name": "[concat(parameters('linuxVMNamePrefix'), copyindex(1), '-nic')]",
       "copy": {
         "name": "networkInterfaceLoopLinux",
         "count": "[variables('numberOfLinuxInstances')]"
@@ -200,7 +194,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-        "[concat('Microsoft.Network/publicIPAddresses/', parameters('linuxVMNamePrefix'), '-ip', copyindex(1))]"
+        "[concat('Microsoft.Network/publicIPAddresses/', parameters('linuxVMNamePrefix'), copyindex(1), '-ip')]"
       ],
       "properties": {
         "ipConfigurations": [
@@ -209,7 +203,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('linuxVMNamePrefix'), '-ip', copyindex(1))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('linuxVMNamePrefix'), copyindex(1), '-ip')]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
@@ -222,7 +216,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic', copyindex(1))]",
+      "name": "[concat(parameters('windowsVMNamePrefix'), copyindex(1), '-nic')]",
       "copy": {
         "name": "networkInterfaceLoopWindows",
         "count": "[variables('numberOfWindowsInstances')]"
@@ -230,7 +224,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-        "[concat('Microsoft.Network/publicIPAddresses/', parameters('windowsVMNamePrefix'), '-ip', copyindex(1))]"
+        "[concat('Microsoft.Network/publicIPAddresses/', parameters('windowsVMNamePrefix'), copyindex(1), '-ip')]"
       ],
       "properties": {
         "ipConfigurations": [
@@ -239,7 +233,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('windowsVMNamePrefix'), '-ip', copyindex(1))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('windowsVMNamePrefix'), copyindex(1), '-ip')]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
@@ -260,12 +254,12 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('windowsVMNamePrefix'), '-nic', copyindex(1))]",
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('windowsVMNamePrefix'), copyindex(1), '-nic')]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
         "availabilitySet": {
-          "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('availabilitySetName'))]"
         },
         "hardwareProfile": {
           "vmSize": "[variables('vmSize')]"
@@ -285,7 +279,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','winosdisk', copyindex(1), '.vhd')]"
+              "uri": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('windowsVMNamePrefix'), copyindex(1), 'osdisk', '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -294,14 +288,14 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('windowsVMNamePrefix'), '-nic',copyindex(1)))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('windowsVMNamePrefix'), copyindex(1), '-nic'))]"
             }
           ]
         },
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net')]"
+            "storageUri": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net')]"
           }
         }
       }
@@ -317,12 +311,12 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', parameters('linuxVMNamePrefix'), '-nic', copyindex(1))]",
+        "[concat('Microsoft.Network/networkInterfaces/', parameters('linuxVMNamePrefix'), copyindex(1), '-nic')]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
       ],
       "properties": {
         "availabilitySet": {
-          "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('availabilitySetName'))]"
         },
         "hardwareProfile": {
           "vmSize": "[variables('vmSize')]"
@@ -342,7 +336,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxosdisk', copyindex(1), '.vhd')]"
+              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/', parameters('linuxVMNamePrefix'), copyindex(1), 'osdisk', '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -353,7 +347,7 @@
               "diskSizeGB": "100",
               "lun": 0,
               "vhd": {
-                "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/','linuxdatadisk', copyindex(1), '.vhd')]"
+                "uri": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('linuxVMNamePrefix'), copyindex(1), 'datadisk', '.vhd')]"
               },
               "createOption": "Empty"
             }
@@ -362,14 +356,14 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('linuxVMNamePrefix'), '-nic',copyindex(1)))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('linuxVMNamePrefix'), copyindex(1), '-nic'))]"
             }
           ]
         },
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net')]"
+            "storageUri": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net')]"
           }
         }
       }
