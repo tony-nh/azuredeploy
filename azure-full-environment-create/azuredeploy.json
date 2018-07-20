@@ -63,13 +63,6 @@
         "description": "The CentOS version for the VM. This will pick a fully patched image of this given CentOS version. Allowed values: 6.8, 6.9, 7.3, 7.5."
       }
     },
-    "publicIPAddressName": {
-      "type": "string",
-      "defaultValue": "_-ip",
-      "metadata": {
-        "description": "name of public IP address"
-      }
-    },
     "vnetName": {
       "type": "string",
       "defaultValue": "_vnet",
