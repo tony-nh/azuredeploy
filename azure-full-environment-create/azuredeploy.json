@@ -139,24 +139,16 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('publicIPAddressNameLinux1')]",
+      "name": "[concat(parameters('lnxVMNamePrefix'), '-ip', copyindex(1) ]",
+      "copy": {
+        "name": "publicIPAddressLoop"
+        "count": "[variables('numberOfLinuxInstances')]"
+      },
       "location": "[resourceGroup().location]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
           "domainNameLabel": "[concat(parameters('linuxVMNamePrefix'), '1')]"
-        }
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('publicIPAddressNameLinux2')]",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "publicIPAllocationMethod": "Dynamic",
-        "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('linuxVMNamePrefix'), '2')]"
         }
       }
     },
