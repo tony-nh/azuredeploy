@@ -139,7 +139,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('lnxVMNamePrefix'), '-ip', copyindex(1) ]",
+      "name": "[concat(parameters('linuxVMNamePrefix'), '-ip', copyindex(1) ]",
       "copy": {
         "name": "publicIPAddressLoop"
         "count": "[variables('numberOfLinuxInstances')]"
@@ -155,48 +155,16 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('publicIPAddressNameWindows1')]",
+      "name": "[concat(parameters('windowsVMNamePrefix'), '-ip', copyindex(1) ]",
+      "copy": {
+        "name": "publicIPAddressLoop"
+        "count": "[variables('numberOfWindowsInstances')]"
+      },
       "location": "[resourceGroup().location]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
           "domainNameLabel": "[concat(parameters('windowsVMNamePrefix'), '1')]"
-        }
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('publicIPAddressNameWindows2')]",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "publicIPAllocationMethod": "Dynamic",
-        "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('windowsVMNamePrefix'), '2')]"
-        }
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('publicIPAddressNamewindows3')]",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "publicIPAllocationMethod": "Dynamic",
-        "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('windowsVMNamePrefix'), '3')]"
-        }
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('publicIPAddressNameWindows4')]",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "publicIPAllocationMethod": "Dynamic",
-        "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('windowsVMNamePrefix'), '4')]"
         }
       }
     },
