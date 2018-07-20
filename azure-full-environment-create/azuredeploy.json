@@ -329,14 +329,14 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/vhds/', parameters('linuxVMNamePrefix'), copyindex(1), 'osdisk', '.vhd')]"
+              "uri": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('linuxVMNamePrefix'), copyindex(1), 'osdisk', '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
           },
           "dataDisks": [
             {
-              "name": "datadisk1",
+              "name": "datadisk",
               "diskSizeGB": "100",
               "lun": 0,
               "vhd": {
