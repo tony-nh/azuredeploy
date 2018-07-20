@@ -30,7 +30,7 @@
         "value": "CentOS"
     },
     "linuxImageSKU": {
-      "value": "6.9"
+      "value": "7.3"
     },
     "linuxNicNamePrefix": {
         "value": "lnxvm-nic"
