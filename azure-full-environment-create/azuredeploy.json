@@ -141,7 +141,7 @@
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat(parameters('linuxVMNamePrefix'), '-ip', copyindex(1))]",
       "copy": {
-        "name": "publicIPAddressLoop",
+        "name": "publicIPAddressLoopLinux",
         "count": "[variables('numberOfLinuxInstances')]"
       },
       "location": "[resourceGroup().location]",
@@ -157,7 +157,7 @@
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat(parameters('windowsVMNamePrefix'), '-ip', copyindex(1))]",
       "copy": {
-        "name": "publicIPAddressLoop",
+        "name": "publicIPAddressLoopWindows",
         "count": "[variables('numberOfWindowsInstances')]"
       },
       "location": "[resourceGroup().location]",
@@ -194,7 +194,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(parameters('linuxVMNamePrefix'), '-nic', copyindex(1))]",
       "copy": {
-        "name": "networkInterfaceLoop",
+        "name": "networkInterfaceLoopLinux",
         "count": "[variables('numberOfLinuxInstances')]"
       },
       "location": "[resourceGroup().location]",
@@ -222,11 +222,15 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic1')]",
+      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic', copyindex(1))]",
+      "copy": {
+        "name": "networkInterfaceLoopWindows",
+        "count": "[variables('numberOfWindowsInstances')]"
+      },
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressNameWindows1'))]"
+        "[concat('Microsoft.Network/publicIPAddresses/', parameters('windowsVMNamePrefix'), '-ip', copyindex(1))]"
       ],
       "properties": {
         "ipConfigurations": [
@@ -235,85 +239,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressNameWindows1'))]"
-              },
-              "subnet": {
-                "id": "[variables('subnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic2')]",
-      "location": "[resourceGroup().location]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressNameWindows2'))]"
-      ],
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressNameWindows2'))]"
-              },
-              "subnet": {
-                "id": "[variables('subnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic3')]",
-      "location": "[resourceGroup().location]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressNameWindows3'))]"
-      ],
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressNameWindows3'))]"
-              },
-              "subnet": {
-                "id": "[variables('subnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic4')]",
-      "location": "[resourceGroup().location]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressNameWindows4'))]"
-      ],
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressNameWindows4'))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('windowsVMNamePrefix'), '-ip', copyindex(1))]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
@@ -328,7 +254,7 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(parameters('windowsVMNamePrefix'), copyindex(1))]",
       "copy": {
-        "name": "virtualMachineLoop",
+        "name": "virtualMachineLoopWindows",
         "count": "[variables('numberOfWindowsInstances')]"
       },
       "location": "[resourceGroup().location]",
@@ -382,7 +308,7 @@
     },
     {
       "apiVersion": "2015-06-15",
-      "type": "Microsoft.Compute/virtualMachines",
+      "type": "Microsoft.Compute/virtualMachinesLinux",
       "name": "[concat(parameters('linuxVMNamePrefix'), copyindex(1))]",
       "copy": {
         "name": "virtualMachineLoop",
