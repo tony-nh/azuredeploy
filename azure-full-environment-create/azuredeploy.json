@@ -65,7 +65,7 @@
     },
     "publicIPAddressName": {
       "type": "string",
-      "defaultValue": "_publicip",
+      "defaultValue": "_-ip",
       "metadata": {
         "description": "name of public IP address"
       }
@@ -106,12 +106,12 @@
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
     "numberOfLinuxInstances": 2,
     "numberOfWindowsInstances": 4,
-    "publicIPAddressNameWindows1": "[concat(parameters('windowsVMNamePrefix'), 'publicip1')]",
-    "publicIPAddressNameWindows2": "[concat(parameters('windowsVMNamePrefix'), 'publicip2')]",
-    "publicIPAddressNameWindows3": "[concat(parameters('windowsVMNamePrefix'), 'publicip3')]",
-    "publicIPAddressNameWindows4": "[concat(parameters('windowsVMNamePrefix'), 'publicip4')]",
-    "publicIPAddressNameLinux1": "[concat(parameters('linuxVMNamePrefix'), 'publicip1')]",
-    "publicIPAddressNameLinux2": "[concat(parameters('linuxVMNamePrefix'), 'publicip2')]"
+    "publicIPAddressNameWindows1": "[concat(parameters('windowsVMNamePrefix'), '-ip1')]",
+    "publicIPAddressNameWindows2": "[concat(parameters('windowsVMNamePrefix'), '-ip2')]",
+    "publicIPAddressNameWindows3": "[concat(parameters('windowsVMNamePrefix'), '-ip3')]",
+    "publicIPAddressNameWindows4": "[concat(parameters('windowsVMNamePrefix'), '-ip4')]",
+    "publicIPAddressNameLinux1": "[concat(parameters('linuxVMNamePrefix'), '-ip1')]",
+    "publicIPAddressNameLinux2": "[concat(parameters('linuxVMNamePrefix'), '-ip2')]"
   },
    "resources": [ {
       "type": "Microsoft.Storage/storageAccounts",
@@ -231,7 +231,7 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('linuxVMNamePrefix'), 'nic1')]",
+      "name": "[concat(parameters('linuxVMNamePrefix'), '-nic1')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
@@ -257,7 +257,7 @@
         {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('linuxVMNamePrefix'), 'nic2')]",
+      "name": "[concat(parameters('linuxVMNamePrefix'), '-nic2')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
@@ -283,7 +283,7 @@
         {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('windowsVMNamePrefix'), 'nic1')]",
+      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic1')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
@@ -309,7 +309,7 @@
             {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('windowsVMNamePrefix'), 'nic2')]",
+      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic2')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
@@ -335,7 +335,7 @@
             {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('windowsVMNamePrefix'), 'nic3')]",
+      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic3')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
@@ -361,7 +361,7 @@
             {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('windowsVMNamePrefix'), 'nic4')]",
+      "name": "[concat(parameters('windowsVMNamePrefix'), '-nic4')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
