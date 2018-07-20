@@ -196,7 +196,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('linuxVMNamePrefix'), copyindex(1), '-ip')]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('linuxVMNamePrefix'), copyindex(1), '-ip'))]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
@@ -226,7 +226,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('windowsVMNamePrefix'), copyindex(1), '-ip')]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('windowsVMNamePrefix'), copyindex(1), '-ip'))]"
               },
               "subnet": {
                 "id": "[variables('subnetRef')]"
