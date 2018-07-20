@@ -1,8 +1,8 @@
-{
-   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-   "contentVersion": "1.0.0.0",
-   "parameters": { 
-      "storageAccountName": {
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "storageAccountName": {
       "type": "string",
       "defaultValue": "_storacct",
       "metadata": {
@@ -78,19 +78,19 @@
       }
     },
     "availabilitySetName": {
-        "type": "string",
+      "type": "string",
       "defaultValue": "_availset",
-        "metadata": {
-            "description": "name of availability set"
-        }
+      "metadata": {
+        "description": "name of availability set"
+      }
     },
-         "nsgName": {
+    "nsgName": {
       "type": "string",
       "defaultValue": "_nsg",
       "metadata": {
         "description": "name of  network security group"
       }
-         }
+    }
   },
   "variables": {
     "availabilitySetName": "[parameters('availabilitySetName')]",
@@ -113,7 +113,8 @@
     "publicIPAddressNameLinux1": "[concat(parameters('linuxVMNamePrefix'), '-ip1')]",
     "publicIPAddressNameLinux2": "[concat(parameters('linuxVMNamePrefix'), '-ip2')]"
   },
-   "resources": [ {
+  "resources": [
+    {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[parameters('storageAccountName')]",
       "apiVersion": "2015-06-15",
@@ -127,14 +128,14 @@
       "name": "[variables('availabilitySetName')]",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
-      "properties": { }
+      "properties": {}
     },
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "[parameters('nsgName')]",
       "location": "[resourceGroup().location]"
-        },
+    },
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
@@ -147,7 +148,7 @@
         }
       }
     },
-        {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('publicIPAddressNameLinux2')]",
@@ -171,7 +172,7 @@
         }
       }
     },
-        {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('publicIPAddressNameWindows2')]",
@@ -183,7 +184,7 @@
         }
       }
     },
-        {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('publicIPAddressNamewindows3')]",
@@ -195,7 +196,7 @@
         }
       }
     },
-        {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('publicIPAddressNameWindows4')]",
@@ -254,7 +255,7 @@
         ]
       }
     },
-        {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(parameters('linuxVMNamePrefix'), '-nic2')]",
@@ -280,7 +281,7 @@
         ]
       }
     },
-        {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(parameters('windowsVMNamePrefix'), '-nic1')]",
@@ -306,7 +307,7 @@
         ]
       }
     },
-            {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(parameters('windowsVMNamePrefix'), '-nic2')]",
@@ -332,7 +333,7 @@
         ]
       }
     },
-            {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(parameters('windowsVMNamePrefix'), '-nic3')]",
@@ -358,7 +359,7 @@
         ]
       }
     },
-            {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(parameters('windowsVMNamePrefix'), '-nic4')]",
@@ -384,8 +385,7 @@
         ]
       }
     },
-
-       {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(parameters('windowsVMNamePrefix'), copyindex(1))]",
@@ -442,7 +442,7 @@
         }
       }
     },
-      {
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(parameters('linuxVMNamePrefix'), copyindex(1))]",
@@ -459,7 +459,7 @@
       "properties": {
         "availabilitySet": {
           "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
-        },        
+        },
         "hardwareProfile": {
           "vmSize": "[variables('vmSize')]"
         },
@@ -510,6 +510,6 @@
         }
       }
     }
-   ],
-   "outputs": {  }
+  ],
+  "outputs": {}
 }
