@@ -5,6 +5,6 @@
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
-This template will create a network, an availability set and multiple VMs based on the parameters passed in.
+This template will create a virtual network, an availability set, a storage account, and multiple VMs based on the parameters passed in.
 
 Although only the parameters in [azuredeploy.parameters.json](./azuredeploy.parameters.json) are necessary, you can override the defaults of any of the template parameters.
